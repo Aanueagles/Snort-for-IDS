@@ -54,14 +54,18 @@ Verify installation:
 snort -V
 ```
 Enable promiscuous mode:
+
 ```bash
 sudo ip link set eth0 promisc on
 ```
 |Replace eth0 with your actual network interface (use ip a to check).
 
 🛠️ Configuration
+
 -Main config file: /etc/snort/snort.conf
+
 -Set your local network:
+
 ```conf
 var HOME_NET 192.168.1.0/24
 ```
@@ -77,19 +81,25 @@ output alert_fast: stdout
 ```
 
 ✍️ Creating and Testing Rules
+
 Sample ICMP Detection Rule
+
 ```conf
 alert icmp any any -> $HOME_NET any (msg:"ICMP Ping Detected"; sid:1000001; rev:1;)
 ```
+
 Sample TCP SYN Scan Rule
 ```conf
 alert tcp any any -> $HOME_NET any (flags:S; msg:"TCP Scan Detected"; sid:1000002; rev:1;)
 ```
+
 -Test rule syntax:
+
 ```bash
 sudo snort -T -c /etc/snort/snort.conf
 ```
 -Run Snort in IDS mode:
+
   ```bash
   sudo snort -q -A console -c /etc/snort/snort.conf -i eth0
   ```
@@ -111,24 +121,40 @@ sudo snort -A console -q -c /etc/snort/snort.conf -r /path/to/file.pcap
     |Observe alerts in the terminal or /var/log/snort/alert.
 
 📂 Log Analysis
+
 Default alert path: /var/log/snort/alert
+
 Use cat or less to view logs
+
 CSV or unified2 output plugins can be enabled for advanced SIEM tools
 
 📸 Screenshots
+
 (Upload images in /screenshots folder)
+
 ✅ Snort installation success
+
+
 ✅ Config test passed
+
 ✅ Console alerts
+
 ✅ Custom rules in action
 
 📘 Key Learnings
+
 Snort can operate in various modes (sniffer, packet logger, IDS).
+
 Custom rules are defined using human-readable syntax.
+
 IDS placement and interface setup is critical for visibility.
+
 Alert logs can provide rich data for incident response.
 
 🧠 Author
+
 Oyedepo Joseph Aanuoluwapo
+
 Cybersecurity Enthusiast | SOC Analyst | Blue Team Labs
+
 RedeemedNet - Protecting the value within.
